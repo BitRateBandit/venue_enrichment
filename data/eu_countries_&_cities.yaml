@@ -1,0 +1,767 @@
+Albania:
+  major_cities:
+  - Tirana
+  - Shkodër
+  - Korçë
+  expanded_cities:
+  - Durrës
+  - Vlorë
+  - Elbasan
+  - Gjirokastër
+  - Berat
+  - Sarandë
+
+Andorra:
+  major_cities:
+  - Andorra la Vella
+  - Escaldes-Engordany
+  - Encamp
+  expanded_cities:
+  - La Massana
+  - Sant Julià de Lòria
+  - Canillo
+  - Ordino
+
+Argentina:
+  major_cities:
+  - Buenos Aires
+  - Córdoba
+  - Rosario
+  expanded_cities:
+  - Mendoza
+  - La Plata
+  - Salta
+  - San Miguel de Tucumán
+  - Mar del Plata
+  - San Carlos de Bariloche
+  - Ushuaia
+
+Austria:
+  major_cities:
+  - Vienna
+  - Salzburg
+  - Graz
+  expanded_cities:
+  - Innsbruck
+  - Linz
+  - Klagenfurt
+  - Bregenz
+  - St. Pölten
+  - Hallstatt
+
+Belarus:
+  major_cities:
+  - Minsk
+  - Brest
+  - Grodno
+  expanded_cities:
+  - Gomel
+  - Vitebsk
+  - Mogilev
+  - Bobruisk
+
+Belgium:
+  major_cities:
+  - Brussels
+  - Antwerp
+  - Ghent
+  expanded_cities:
+  - Bruges
+  - Liège
+  - Leuven
+  - Charleroi
+  - Mechelen
+  - Namur
+  - Ostend
+
+Bolivia:
+  major_cities:
+  - La Paz
+  - Santa Cruz de la Sierra
+  - Cochabamba
+  expanded_cities:
+  - Sucre
+  - Oruro
+  - Tarija
+  - Potosí
+
+Bosnia and Herzegovina:
+  major_cities:
+  - Sarajevo
+  - Mostar
+  - Banja Luka
+  expanded_cities:
+  - Tuzla
+  - Zenica
+  - Bihać
+  - Trebinje
+
+Brazil:
+  major_cities:
+  - Rio de Janeiro
+  - São Paulo
+  - Salvador
+  expanded_cities:
+  - Recife
+  - Belo Horizonte
+  - Porto Alegre
+  - Brasília
+  - Curitiba
+  - Fortaleza
+  - Manaus
+
+Bulgaria:
+  major_cities:
+  - Sofia
+  - Plovdiv
+  - Varna
+  expanded_cities:
+  - Burgas
+  - Veliko Tarnovo
+  - Ruse
+  - Bansko
+  - Blagoevgrad
+  - Stara Zagora
+
+Canada:
+  major_cities:
+  - Toronto
+  - Montreal
+  - Vancouver
+  expanded_cities:
+  - Calgary
+  - Edmonton
+  - Halifax
+  - Winnipeg
+  - Ottawa
+  - Quebec City
+  - Victoria
+
+Chile:
+  major_cities:
+  - Santiago
+  - Valparaíso
+  - Concepción
+  expanded_cities:
+  - Viña del Mar
+  - Valdivia
+  - Antofagasta
+  - La Serena
+  - Puerto Varas
+  - Punta Arenas
+  - Iquique
+
+Colombia:
+  major_cities:
+  - Bogotá
+  - Medellín
+  - Cali
+  expanded_cities:
+  - Cartagena
+  - Barranquilla
+  - Bucaramanga
+  - Pereira
+  - Manizales
+  - Santa Marta
+  - Armenia
+
+Croatia:
+  major_cities:
+  - Zagreb
+  - Split
+  - Rijeka
+  expanded_cities:
+  - Dubrovnik
+  - Zadar
+  - Osijek
+  - Pula
+  - Šibenik
+  - Varaždin
+
+Cyprus:
+  major_cities:
+  - Nicosia
+  - Limassol
+  - Larnaca
+  expanded_cities:
+  - Paphos
+  - Ayia Napa
+  - Famagusta
+
+Czech Republic:
+  major_cities:
+  - Prague
+  - Brno
+  - Ostrava
+  expanded_cities:
+  - Plzeň
+  - Olomouc
+  - Liberec
+  - České Budějovice
+  - Hradec Králové
+  - Karlovy Vary
+
+Denmark:
+  major_cities:
+  - Copenhagen
+  - Aarhus
+  - Aalborg
+  expanded_cities:
+  - Odense
+  - Roskilde
+  - Esbjerg
+  - Helsingør
+  - Vejle
+
+Ecuador:
+  major_cities:
+  - Quito
+  - Guayaquil
+  - Cuenca
+  expanded_cities:
+  - Loja
+  - Ambato
+  - Manta
+  - Riobamba
+  - Salinas
+
+Estonia:
+  major_cities:
+  - Tallinn
+  - Tartu
+  - Pärnu
+  expanded_cities:
+  - Narva
+  - Viljandi
+  - Haapsalu
+
+Finland:
+  major_cities:
+  - Helsinki
+  - Tampere
+  - Turku
+  expanded_cities:
+  - Oulu
+  - Jyväskylä
+  - Rovaniemi
+  - Kuopio
+  - Lahti
+  - Vaasa
+
+France:
+  major_cities:
+  - Paris
+  - Marseille
+  - Lyon
+  expanded_cities:
+  - Lille
+  - Bordeaux
+  - Toulouse
+  - Nantes
+  - Nice
+  - Strasbourg
+  - Montpellier
+
+Georgia:
+  major_cities:
+  - Tbilisi
+  - Batumi
+  - Kutaisi
+  expanded_cities:
+  - Telavi
+  - Rustavi
+  - Mtskheta
+  - Zugdidi
+
+Germany:
+  major_cities:
+  - Berlin
+  - Hamburg
+  - Cologne
+  expanded_cities:
+  - Munich
+  - Leipzig
+  - Frankfurt
+  - Düsseldorf
+  - Stuttgart
+  - Dresden
+  - Bremen
+
+Greece:
+  major_cities:
+  - Athens
+  - Thessaloniki
+  - Patras
+  expanded_cities:
+  - Heraklion
+  - Chania
+  - Volos
+  - Ioannina
+  - Kalamata
+  - Corfu
+
+Guyana:
+  major_cities:
+  - Georgetown
+  - New Amsterdam
+  - Linden
+  expanded_cities:
+  - Bartica
+
+Hungary:
+  major_cities:
+  - Budapest
+  - Debrecen
+  - Pécs
+  expanded_cities:
+  - Szeged
+  - Győr
+  - Miskolc
+  - Veszprém
+  - Sopron
+
+Iceland:
+  major_cities:
+  - Reykjavík
+  - Akureyri
+  - Selfoss
+  expanded_cities:
+  - Ísafjörður
+  - Egilsstaðir
+  - Húsavík
+
+Ireland:
+  major_cities:
+  - Dublin
+  - Cork
+  - Galway
+  expanded_cities:
+  - Limerick
+  - Waterford
+  - Sligo
+  - Killarney
+  - Dingle
+
+Italy:
+  major_cities:
+  - Rome
+  - Milan
+  - Naples
+  expanded_cities:
+  - Florence
+  - Bologna
+  - Turin
+  - Venice
+  - Palermo
+  - Bari
+  - Verona
+
+Japan:
+  major_cities:
+  - Tokyo
+  - Osaka
+  - Kyoto
+  expanded_cities:
+  - Yokohama
+  - Fukuoka
+  - Sapporo
+  - Nagoya
+  - Kobe
+  - Hiroshima
+  - Sendai
+
+Kosovo:
+  major_cities:
+  - Pristina
+  - Prizren
+  - Peja
+  expanded_cities:
+  - Gjakova
+  - Ferizaj
+  - Mitrovica
+  - Gjilan
+
+Latvia:
+  major_cities:
+  - Riga
+  - Liepāja
+  - Daugavpils
+  expanded_cities:
+  - Jūrmala
+  - Cēsis
+  - Ventspils
+  - Jelgava
+  - Rēzekne
+  - Sigulda
+
+Liechtenstein:
+  major_cities:
+  - Vaduz
+  - Schaan
+  - Balzers
+  expanded_cities:
+  - Triesen
+  - Eschen
+  - Mauren
+
+Lithuania:
+  major_cities:
+  - Vilnius
+  - Kaunas
+  - Klaipėda
+  expanded_cities:
+  - Šiauliai
+  - Panevėžys
+  - Palanga
+  - Druskininkai
+  - Alytus
+
+Luxembourg:
+  major_cities:
+  - Luxembourg City
+  - Esch-sur-Alzette
+  - Differdange
+  expanded_cities:
+  - Ettelbruck
+  - Diekirch
+  - Dudelange
+  - Vianden
+
+Malta:
+  major_cities:
+  - Valletta
+  - Sliema
+  - St. Julian's
+  expanded_cities:
+  - Mdina
+  - Rabat
+  - Victoria
+  - Mosta
+  - Qawra
+
+Moldova:
+  major_cities:
+  - Chișinău
+  - Bălți
+  - Tiraspol
+  expanded_cities:
+  - Comrat
+  - Cahul
+  - Soroca
+  - Orhei
+  - Ungheni
+
+Monaco:
+  major_cities:
+  - Monaco
+  expanded_cities:
+  - Monte Carlo
+  - La Condamine
+  - Fontvieille
+  - Larvotto
+
+Montenegro:
+  major_cities:
+  - Podgorica
+  - Kotor
+  - Budva
+  expanded_cities:
+  - Herceg Novi
+  - Bar
+  - Cetinje
+  - Nikšić
+  - Ulcinj
+  - Tivat
+
+Netherlands:
+  major_cities:
+  - Amsterdam
+  - Rotterdam
+  - Utrecht
+  expanded_cities:
+  - The Hague
+  - Eindhoven
+  - Groningen
+  - Maastricht
+  - Haarlem
+  - Tilburg
+  - Arnhem
+
+North Macedonia:
+  major_cities:
+  - Skopje
+  - Ohrid
+  - Bitola
+  expanded_cities:
+  - Tetovo
+  - Prilep
+  - Struga
+
+Norway:
+  major_cities:
+  - Oslo
+  - Bergen
+  - Trondheim
+  expanded_cities:
+  - Stavanger
+  - Tromsø
+  - Kristiansand
+  - Bodø
+  - Ålesund
+  - Drammen
+
+Paraguay:
+  major_cities:
+  - Asunción
+  - Encarnación
+  - Ciudad del Este
+  expanded_cities:
+  - San Bernardino
+  - Luque
+  - Villarrica
+
+Peru:
+  major_cities:
+  - Lima
+  - Cusco
+  - Arequipa
+  expanded_cities:
+  - Trujillo
+  - Piura
+  - Iquitos
+  - Huaraz
+  - Puno
+  - Chiclayo
+  - Tacna
+
+Poland:
+  major_cities:
+  - Warsaw
+  - Kraków
+  - Gdańsk
+  expanded_cities:
+  - Wrocław
+  - Poznań
+  - Łódź
+  - Katowice
+  - Lublin
+  - Szczecin
+  - Sopot
+
+Portugal:
+  major_cities:
+  - Lisbon
+  - Porto
+  - Coimbra
+  expanded_cities:
+  - Braga
+  - Faro
+  - Aveiro
+  - Funchal
+  - Guimarães
+  - Évora
+  - Setúbal
+
+Romania:
+  major_cities:
+  - Bucharest
+  - Cluj-Napoca
+  - Timișoara
+  expanded_cities:
+  - Iași
+  - Sibiu
+  - Brașov
+  - Constanța
+  - Oradea
+  - Craiova
+  - Târgu Mureș
+
+Russia:
+  major_cities:
+  - Moscow
+  - St. Petersburg
+  - Yekaterinburg
+  expanded_cities:
+  - Kazan
+  - Novosibirsk
+  - Nizhny Novgorod
+  - Sochi
+  - Vladivostok
+  - Samara
+  - Perm
+
+San Marino:
+  major_cities:
+  - San Marino
+  - Serravalle
+  - Borgo Maggiore
+  expanded_cities:
+  - Domagnano
+  - Fiorentino
+  - Acquaviva
+  - Faetano
+
+Serbia:
+  major_cities:
+  - Belgrade
+  - Novi Sad
+  - Niš
+  expanded_cities:
+  - Subotica
+  - Kragujevac
+  - Kraljevo
+  - Užice
+
+Slovakia:
+  major_cities:
+  - Bratislava
+  - Košice
+  - Banská Bystrica
+  expanded_cities:
+  - Žilina
+  - Prešov
+  - Nitra
+  - Trnava
+
+Slovenia:
+  major_cities:
+  - Ljubljana
+  - Maribor
+  - Koper
+  expanded_cities:
+  - Celje
+  - Piran
+  - Novo Mesto
+
+Spain:
+  major_cities:
+  - Madrid
+  - Barcelona
+  - Seville
+  expanded_cities:
+  - Valencia
+  - Bilbao
+  - Granada
+  - Málaga
+  - Santiago de Compostela
+  - Ibiza Town
+  - Zaragoza
+
+Suriname:
+  major_cities:
+  - Paramaribo
+  - Nieuw Nickerie
+  expanded_cities:
+  - Lelydorp
+  - Albina
+  - Moengo
+
+Sweden:
+  major_cities:
+  - Stockholm
+  - Gothenburg
+  - Malmö
+  expanded_cities:
+  - Uppsala
+  - Lund
+  - Umeå
+  - Helsingborg
+  - Visby
+  - Örebro
+  - Linköping
+
+Switzerland:
+  major_cities:
+  - Zurich
+  - Geneva
+  - Basel
+  expanded_cities:
+  - Lausanne
+  - Bern
+  - Lucerne
+  - Lugano
+  - Montreux
+  - St. Gallen
+  - Winterthur
+
+Turkey:
+  major_cities:
+  - Istanbul
+  - Ankara
+  - Izmir
+  expanded_cities:
+  - Antalya
+  - Bursa
+  - Eskişehir
+  - Diyarbakır
+  - Gaziantep
+  - Mardin
+  - Bodrum
+
+Ukraine:
+  major_cities:
+  - Kyiv
+  - Lviv
+  - Odesa
+  expanded_cities:
+  - Kharkiv
+  - Dnipro
+  - Ivano-Frankivsk
+  - Chernivtsi
+  - Uzhhorod
+  - Ternopil
+  - Vinnytsia
+
+United Kingdom:
+  major_cities:
+  - London
+  - Manchester
+  - Liverpool
+  expanded_cities:
+  - Glasgow
+  - Bristol
+  - Birmingham
+  - Newcastle upon Tyne
+  - Edinburgh
+  - Belfast
+  - Brighton
+
+Uruguay:
+  major_cities:
+  - Montevideo
+  - Punta del Este
+  - Colonia del Sacramento
+  expanded_cities:
+  - Maldonado
+  - Salto
+  - Rocha
+
+Uzbekistan:
+  major_cities:
+  - Tashkent
+  - Samarkand
+  - Bukhara
+  expanded_cities:
+  - Khiva
+  - Nukus
+  - Fergana
+  - Andijan
+  - Namangan
+  - Qarshi
+
+Vatican City:
+  major_cities:
+  - Vatican City
+  expanded_cities: []
+
+Venezuela:
+  major_cities:
+  - Caracas
+  - Valencia
+  - Maracaibo
+  expanded_cities:
+  - Barquisimeto
+  - Mérida
+  - Puerto La Cruz
+  - San Cristóbal
+  - Coro

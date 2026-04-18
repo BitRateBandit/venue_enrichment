@@ -1,0 +1,20 @@
+.env
+.env.*
+secrets.md
+SECRETS.md
+data/SECRETS.md
+__pycache__/
+*.pyc
+*.log
+*.sqlite3
+data/cache/
+data/raw/
+data/state/
+node_modules/
+.DS_Store
+data/input/
+data/output/
+data/logs/
+Import Files/
+photo-enricher-main.zip
+data/*.xlsx

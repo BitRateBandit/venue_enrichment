@@ -1,0 +1,2178 @@
+openapi: 3.1.0
+x-stoplight:
+  id: xdv7rgbi1x762
+info:
+  description: Enhance your offering with concert data from JamBase.
+  version: 1.0.0
+  title: JamBase Concert Data API
+  contact:
+    email: developer@jambase.com
+    name: Team JamBase
+    url: 'https://www.jambase.com/contact'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  termsOfService: 'https://www.jambase.com/terms'
+  summary: Enhance your offering with concert data from JamBase.
+tags:
+  - name: Events
+    description: Search Events
+  - name: Streams
+    description: Search Streams
+  - name: Artists
+    description: Search Artists
+  - name: Venues
+    description: Search Venues
+  - name: Geographies
+    description: 'Lookup Countries, Cities, Etc'
+  - name: Genres
+    description: Lookup Genres
+  - name: Lookups
+    description: Lookup Identifiers
+  - name: Enums
+    description: Enumerators for filters
+security:
+  - ApiKeyAuth: []
+paths:
+  /events:
+    get:
+      tags:
+        - Events
+      summary: Search Events
+      operationId: searchEvents
+      description: |
+        Search events by location, date, artist, genre, and more.
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/eventTypeParam'
+        - $ref: '#/components/parameters/artistIdParam'
+        - $ref: '#/components/parameters/artistNameParam'
+        - $ref: '#/components/parameters/genreSlugParam'
+        - $ref: '#/components/parameters/venueIdParam'
+        - $ref: '#/components/parameters/venueNameParam'
+        - $ref: '#/components/parameters/geoCityIdParam'
+        - $ref: '#/components/parameters/geoCountryIso2Param'
+        - $ref: '#/components/parameters/geoCountryIso3Param'
+        - $ref: '#/components/parameters/geoIpParam'
+        - $ref: '#/components/parameters/geoLatitudeParam'
+        - $ref: '#/components/parameters/geoLongitudeParam'
+        - $ref: '#/components/parameters/geoMetroIdParam'
+        - $ref: '#/components/parameters/geoRadiusAmountParam'
+        - $ref: '#/components/parameters/geoRadiusUnitsParam'
+        - $ref: '#/components/parameters/geoStateIsoParam'
+        - $ref: '#/components/parameters/datePresetParam'
+        - $ref: '#/components/parameters/dateFromParam'
+        - $ref: '#/components/parameters/dateToParam'
+        - in: query
+          name: eventDataSource
+          description: The EventDataSource of for the Event.
+          schema:
+            $ref: '#/components/schemas/enumEventDataSource'
+        - $ref: '#/components/parameters/dateModifiedFromParam'
+        - $ref: '#/components/parameters/datePublishedFromParam'
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+        - $ref: '#/components/parameters/expandArtistSameAsParam'
+        - $ref: '#/components/parameters/expandPastEventsParam'
+        - $ref: '#/components/parameters/excludeEventPerformersParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/searchEventsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  '/events/id/{eventDataSource}:{eventId}':
+    get:
+      tags:
+        - Events
+      summary: Get an Upcoming Event
+      operationId: getUpcomingEvent
+      description: |
+        Retrieve a specific Event by JamBase or third-party ID
+      parameters:
+        - in: path
+          name: eventDataSource
+          description: The eventDataSource of the ID for the Event.
+          required: true
+          schema:
+            $ref: '#/components/schemas/enumEventDataSource'
+        - in: path
+          name: eventId
+          description: The unique ID for the Event.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+        - $ref: '#/components/parameters/expandArtistSameAsParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/getSingleUpcomingEventResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /streams:
+    get:
+      tags:
+        - Streams
+      summary: Search Upcoming Streams
+      operationId: searchUpcomingStreams
+      description: |
+        Search upcoming streams by date, artist, genre, and more.
+        Past streams are not available via the API.
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/datePresetParam'
+        - $ref: '#/components/parameters/dateFromParam'
+        - $ref: '#/components/parameters/dateToParam'
+        - $ref: '#/components/parameters/streamDataSourceParam'
+        - $ref: '#/components/parameters/dateModifiedFromParam'
+        - $ref: '#/components/parameters/datePublishedFromParam'
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+        - $ref: '#/components/parameters/expandArtistSameAsParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/searchUpcomingStreamsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  '/streams/id/{streamDataSource}:{streamId}':
+    get:
+      tags:
+        - Streams
+      summary: Get an Upcoming Stream
+      operationId: getStream
+      description: |
+        Retrieve a specific stream by JamBase or third-party ID.
+      parameters:
+        - in: path
+          name: streamDataSource
+          description: The StreamDataSource of the ID for the Stream.
+          required: true
+          schema:
+            $ref: '#/components/schemas/enumStreamDataSource'
+        - in: path
+          name: streamId
+          description: The unique ID for the Stream.
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+        - $ref: '#/components/parameters/expandArtistSameAsParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/getSingleUpcomingStreamResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /artists:
+    get:
+      tags:
+        - Artists
+      summary: Search Artists
+      operationId: searchArtists
+      description: |
+        Search artists by name and genre. 
+        <!-- theme: info -->
+        > #### Requirement
+        > Your request must include at least one of the `artistName` or `genreSlug` parameters.
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/artistNameParam'
+        - $ref: '#/components/parameters/genreSlugParam'
+        - in: query
+          name: artistHasUpcomingEvents
+          description: Set to true to only return artists that have at least one upcoming Concert or Festival
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/dateModifiedFromParam'
+        - $ref: '#/components/parameters/datePublishedFromParam'
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/searchArtistsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  '/artists/id/{artistDataSource}:{artistId}':
+    get:
+      tags:
+        - Artists
+      summary: Get an Artist
+      operationId: getSingleArtist
+      description: |
+        Retrieve a specific artist by JamBase or third-party ID.
+      parameters:
+        - in: path
+          name: artistDataSource
+          description: the ArtistDataSource of the ID for the artist
+          required: true
+          schema:
+            $ref: '#/components/schemas/enumArtistDataSource'
+        - in: path
+          name: artistId
+          description: the unique ID for the artist
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: expandUpcomingEvents
+          description: Use `true` to include the `event` node with any upcoming events for the artist.
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: expandUpcomingStreams
+          description: Use `true` to include the `event` node with any upcoming Streams for the venue.
+          schema:
+            type: boolean
+            default: false
+        - $ref: '#/components/parameters/excludeEventPerformersParam'
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+        - $ref: '#/components/parameters/expandPastEventsParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/getSingleArtistResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /venues:
+    get:
+      tags:
+        - Venues
+      summary: Search Venues
+      operationId: searchVenues
+      description: |
+        Search venues by location and more.
+
+        <!-- theme: info  -->
+        > #### Requirement
+        >
+        > Your request must include at the `venueName` or at least one of the geo parameters such as `geoCityId`, `geoCountryIso2`, `geoCountryIso3`, `geoIp`, `geoMetroId`, `geoStateIso`, or , `geoLatitude` and `geoLongitude`.
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/venueNameParam'
+        - $ref: '#/components/parameters/geoCityIdParam'
+        - $ref: '#/components/parameters/geoCountryIso2Param'
+        - $ref: '#/components/parameters/geoCountryIso3Param'
+        - $ref: '#/components/parameters/geoIpParam'
+        - $ref: '#/components/parameters/geoLatitudeParam'
+        - $ref: '#/components/parameters/geoLongitudeParam'
+        - $ref: '#/components/parameters/geoMetroIdParam'
+        - $ref: '#/components/parameters/geoRadiusAmountParam'
+        - $ref: '#/components/parameters/geoRadiusUnitsParam'
+        - $ref: '#/components/parameters/geoStateIsoParam'
+        - $ref: '#/components/parameters/dateModifiedFromParam'
+        - $ref: '#/components/parameters/datePublishedFromParam'
+        - in: query
+          name: venueHasUpcomingEvents
+          description: Set to true to only return venues that have at least one upcoming event
+          schema:
+            type: boolean
+            default: false
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/searchVenuesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  '/venues/id/{venueDataSource}:{venueId}':
+    get:
+      tags:
+        - Venues
+      summary: Get a Venue
+      operationId: getSingleVenue
+      description: |
+        Retrieve a specific venue by JamBase or third-party ID.
+      parameters:
+        - in: path
+          name: venueDataSource
+          description: the VenueDataSource of the ID for the artist
+          required: true
+          schema:
+            $ref: '#/components/schemas/enumVenueDataSource'
+        - in: path
+          name: venueId
+          description: the unique ID for the Venue
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: expandUpcomingEvents
+          description: Use `true` to include the `event` node with any upcoming Concerts and Festivals for the venue.
+          schema:
+            type: boolean
+            default: false
+        - $ref: '#/components/parameters/excludeEventPerformersParam'
+        - $ref: '#/components/parameters/expandExternalIdentifiersParam'
+        - $ref: '#/components/parameters/expandArtistSameAsParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/getSingleVenueResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /geographies/cities:
+    get:
+      tags:
+        - Geographies
+      summary: Search Cities
+      operationId: searchCities
+      description: |
+        Search for cities. Results will be returned in order of most to least upcoming events in the city, and then alphabetically city name in the case of a tie.       
+
+        <!-- theme: info  -->
+        > #### Requirement
+        > Your request must include at least one of the geo parameters such as `geoCityName`, `geoCountryIso2`, `geoCountryIso3`, `geoIp`, `geoMetroId`, `geoMetroName`, `geoStateIso`, or `geoLatitude` and `geoLongitude`.
+            
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/perPageParam'
+        - $ref: '#/components/parameters/geoCityNameParam'
+        - $ref: '#/components/parameters/geoCountryIso2Param'
+        - $ref: '#/components/parameters/geoCountryIso3Param'
+        - $ref: '#/components/parameters/geoIpParam'
+        - $ref: '#/components/parameters/geoLatitudeParam'
+        - $ref: '#/components/parameters/geoLongitudeParam'
+        - $ref: '#/components/parameters/geoMetroIdParam'
+        - $ref: '#/components/parameters/geoRadiusAmountParam'
+        - $ref: '#/components/parameters/geoRadiusUnitsParam'
+        - $ref: '#/components/parameters/geoStateIsoParam'
+        - schema:
+            type: boolean
+          in: query
+          name: cityHasUpcomingEvents
+          description: Only include Cities with / without upcoming events. Omit for both.
+      responses:
+        '200':
+          description: A list of Cities
+          content:
+            application/json:
+              schema:
+                title: searchCitiesResponseSchema
+                description: An array of `City` objects
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/schemas/Success'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  cities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/City'
+                  request:
+                    $ref: '#/components/schemas/Request'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /geographies/metros:
+    get:
+      tags:
+        - Geographies
+      summary: Get Metros
+      operationId: getMetros
+      description: |
+        A Metro is a collection of Cities, such as the Los Angeles area which includes LA, Hollywood, Anaheim, and more that can be used to filter Events.\
+        \
+        Returns all Metros in Alphabetical order by identifier.
+      responses:
+        '200':
+          description: A list of Metros
+          content:
+            application/json:
+              schema:
+                description: An array of `Metro` objects with member `City` objects
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/schemas/Success'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                    x-stoplight:
+                      id: w8jf412psm43g
+                  metros:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdministrativeArea'
+                  request:
+                    $ref: '#/components/schemas/Request'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/UnauthorizedError'
+      parameters:
+        - in: query
+          name: metroHasUpcomingEvents
+          description: Only include Metros with / without upcoming events. Omit for both.
+          schema:
+            type: boolean
+        - in: query
+          name: cityHasUpcomingEvents
+          description: Only include Cities with / without upcoming events. Omit for both.
+          schema:
+            type: boolean
+        - in: query
+          name: expandMetroCities
+          description: Use `true` to include the `containsPlace` node with the cities for each metro.
+          schema:
+            type: boolean
+            default: false
+  /geographies/states:
+    get:
+      tags:
+        - Geographies
+      summary: Get States / Regions / Provinces
+      operationId: getStates
+      description: |
+        A States (or Region / Province) is a collection of Cities, such as California (USA) or Quebec (Canada) that can be used to filter Events.\
+        \
+        Returns all States/Regions in Alphabetical order by identifier.
+        \
+        Note: Available for United States, Canada, and Australia only.
+      responses:
+        '200':
+          description: A list of States
+          content:
+            application/json:
+              schema:
+                title: getStatesResponseSchema
+                description: An array of `States` objects
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/schemas/Success'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                    x-stoplight:
+                      id: pwzyvj1odd8es
+                  states:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/State'
+                  request:
+                    $ref: '#/components/schemas/Request'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/UnauthorizedError'
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: stateHasUpcomingEvents
+          description: Only include States with / without upcoming events. Omit for both.
+  /geographies/countries:
+    get:
+      tags:
+        - Geographies
+      summary: Get Countries
+      operationId: getCountries
+      description: |
+        Returns all Countries in alphabetical order by ISO2.
+      responses:
+        '200':
+          description: A list of Countries
+          content:
+            application/json:
+              schema:
+                description: An array of `Country` objects
+                type: object
+                properties:
+                  success:
+                    $ref: '#/components/schemas/Success'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                    x-stoplight:
+                      id: nkhefgyd1zwbq
+                  countries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Country'
+                  request:
+                    $ref: '#/components/schemas/Request'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/UnauthorizedError'
+      parameters:
+        - schema:
+            type: boolean
+          in: query
+          name: countryHasUpcomingEvents
+          description: Only include Countries with / without upcoming events. Omit for both.
+  /lookups/event-data-sources:
+    get:
+      tags:
+        - Lookups
+      summary: Get Event Data Sources
+      operationId: getEventDataSources
+      description: |
+        These can be used to filter events by Event IDs from third-party Data Sources.\
+        \
+        Returns all Event Data Sources in Alphabetical order.
+      responses:
+        '200':
+          $ref: Jambase-DataSources-Event-Response-200.yaml
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /lookups/stream-data-sources:
+    get:
+      tags:
+        - Lookups
+      summary: Get Stream Data Sources
+      operationId: getstreamDataSources
+      description: |
+        These can be used to filter Streams from a specific Streaming platform.\
+        \
+        Returns all Stream Data Sources in Alphabetical order.
+      responses:
+        '200':
+          $ref: Jambase-DataSources-Stream-Response-200.yaml
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /lookups/artist-data-sources:
+    get:
+      tags:
+        - Lookups
+      summary: Get Artist Data Sources
+      operationId: getArtistDataSources
+      description: |
+        These can be used to filter events by Artist IDs from third-party Data Sources.\
+        \
+        Returns all Artist Data Sources in Alphabetical order.
+      responses:
+        '200':
+          $ref: Jambase-DataSources-Artist-Response-200.yaml
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /lookups/venue-data-sources:
+    get:
+      tags:
+        - Lookups
+      summary: Get Venue Data Sources
+      operationId: getVenueDataSources
+      description: |
+        These can be used to filter events by Venue IDs from third-party Data Sources.\
+        \
+        This endpoint returns all Venue Data Sources in Alphabetical order.
+      responses:
+        '200':
+          $ref: Jambase-DataSources-Venue-Response-200.yaml
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /genres:
+    get:
+      tags:
+        - Genres
+      summary: Get Genres
+      operationId: getGenres
+      description: |
+        These can be used to filter Artists and Events.\
+        \
+        Returns all Genres in Alphabetical order.
+      responses:
+        '200':
+          $ref: Jambase-Genres-Response-200.yaml
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: apikey
+      description: ''
+  parameters:
+    pageParam:
+      in: query
+      name: page
+      description: Page number of results to retrieve
+      required: false
+      schema:
+        type: integer
+        default: 1
+    perPageParam:
+      in: query
+      name: perPage
+      description: Number of events per page of results
+      required: false
+      schema:
+        type: integer
+        default: 40
+        minimum: 1
+        maximum: 100
+    eventTypeParam:
+      in: query
+      name: eventType
+      description: |
+        Used to isolate only concerts or only festivals(s)\
+        Leave blank to include both concerts and festivals
+        - eventType=concert
+        - eventType=festival
+      schema:
+        $ref: '#/components/schemas/enumEventType'
+    artistIdParam:
+      in: query
+      name: artistId
+      description: |
+        The source and unique identifier for the artist(s).\
+        \
+        For example to search for LCD Soundsystem events:
+
+        - artistId=jambase:228924
+
+        Use a pipe (|) to include multiple artist IDs.\
+        \
+        For example to search for LCD Soundsystem & Khalid events:
+        - artistId=jambase:228924|jambase:3074545
+
+        To use non-JamBase data sources, use the ArtistDataSource [[enum](#)] for the ID(s) you are using.\
+        \
+        For example to search for LCD Soundsystem events using their Ticketmaster ID:
+          - artistId=ticketmaster:K8vZ9175st0
+      schema:
+        type: string
+        example: 'jambase:228924'
+    artistNameParam:
+      in: query
+      name: artistName
+      description: |
+        A keyword-based search for artist name(s).
+        - artistName=Billie%20Eilish
+
+        Use a pipe (|) to include multiple artist names.
+        - artistName=Billie%20Eilish|Lucy%20Dacus
+
+        Keywords should be URL Encoded.\
+        For more precise artist-specific results try using `artistId` or `artist[slug]`.
+
+        Please note that `artistName` cannot be used togehter with `artistId` type searches and will be ignored if `artistId` is provided.
+      example: Billie Eilish
+      schema:
+        type: string
+    genreSlugParam:
+      in: query
+      name: genreSlug
+      description: |
+        Restrict results to a genre.
+        - genreSlug=bluegrass
+
+        Use a pipe (|) to include results from multiple genres.
+        - genreSlug=bluegrass|blues
+      schema:
+        $ref: '#/components/schemas/enumGenres'
+    venueIdParam:
+      in: query
+      name: venueId
+      description: |
+        The source and unique identifier for the venue(s)
+        - venueId=jambase:62108
+
+        Use a pipe (|) to include multiple venue IDs
+        - venueId=jambase:62108|jambase:7932731
+
+        To use non-JamBase IDs, use the <a href="https://apidocs.jambase.com/docs/jambase-api/vg16q2jczs7fg-enum-venue-data-source">source slug</a> for the ID(s) you are using
+        - venueId=ticketmaster:k7vGF99ORYpnS
+      example: 'jambase:62108'
+      schema:
+        type: string
+    venueNameParam:
+      in: query
+      name: venueName
+      description: |
+        A keyword-based search for venue name(s).
+        - venueName=Brooklyn%20Bowl
+
+        Use a pipe (|) to include multiple venue IDs.
+        - venueName=Brooklyn%20Bowl|House%20of%20Blues
+
+        For more precise venue-specific results try using `venueId` or `venue[slug]`.
+      example: Brooklyn%20Bowl
+      schema:
+        type: string
+    geoLatitudeParam:
+      in: query
+      name: geoLatitude
+      description: |
+        The latitude for geographic radius.
+        - geoLatitude=40.7505
+      schema:
+        $ref: '#/components/schemas/propLatitude'
+    geoLongitudeParam:
+      in: query
+      name: geoLongitude
+      description: |
+        The longitude for geographic radius.
+        - geoLongitude=-73.9934
+      schema:
+        $ref: '#/components/schemas/propLongitude'
+    geoStateIsoParam:
+      in: query
+      name: geoStateIso
+      description: |
+        The State code in ISO_3166-2 format [[docs](https://en.wikipedia.org/wiki/ISO_3166-2)].
+        - geoStateIso=US-NY
+
+        Use a pipe (|) to include multiple State codes.
+        - geoStateIso=US-NY|=US-PA
+
+        Note: Available for United States, Canada, and Australia only.
+      schema:
+        $ref: '#/components/schemas/enumState'
+    geoMetroIdParam:
+      in: query
+      name: geoMetroId
+      description: |
+        Use to retrieve events for specific <a href="https://apidocs.jambase.com/docs/jambase-api/5b89026bb2462-get-metros">metro ID(s)</a>.
+        - geoMetroId=jambase:1
+
+        Use a pipe (|) to include multiple metro IDs.
+        - geoMetroId=jambase:1|jambase:5
+      example: 'jambase:1'
+      schema:
+        type: string
+    geoCityNameParam:
+      in: query
+      name: geoCityName
+      description: |
+        Use to retrieve events for city name(s).
+        - geoCityName=Seattle
+
+        Use a pipe (|) to include multiple city names.
+        - geoCityName=Seattle|Tacoma
+
+        For more precise city-specific results try using `city[id]`
+      schema:
+        type: string
+    geoCityIdParam:
+      in: query
+      name: geoCityId
+      description: |
+        Use to retrieve events for specific <a href="https://apidocs.jambase.com/docs/jambase-api/5474ac2525de2-search-cities">JamBase city ID(s)</a>   .     
+        - geoCityId=jambase:4223296
+
+        Use a pipe (|) to include multiple city IDs.
+        - geoCityId=jambase:4223296|jambase:4224564
+
+        When using the `geoCityId` parameter, you can omit the the `geoRadiusAmount` parameter (or) set it to `0` (or) leave it empty to include only results from the city. Else, you can use a radius amount to include events within a radius around the city-center.
+      example: 'jambase:4223296'
+      schema:
+        type: string
+    geoIpParam:
+      in: query
+      name: geoIp
+      description: |
+        Use to retrieve events near an IP address.\
+        Supports IPv4 or IPv6 values.
+        - geoIp=55.123.456.789
+      schema:
+        oneOf:
+          - type: string
+            format: ipv4
+          - type: string
+            format: ipv6
+    geoRadiusAmountParam:
+      in: query
+      name: geoRadiusAmount
+      description: |
+        The search radius for lat/lng type searches.
+        - geoRadiusAmount=60
+      schema:
+        type: number
+        format: int32
+        minimum: 1
+        maximum: 5000
+        default: 60
+    geoRadiusUnitsParam:
+      in: query
+      name: geoRadiusUnits
+      description: |
+        Whether to use miles (default) or kilometers for radius.
+        - geoRadiusUnits=km
+      schema:
+        $ref: '#/components/schemas/enumRadiusUnits'
+    geoCountryIso2Param:
+      in: query
+      name: geoCountryIso2
+      description: |
+        The two-letter ISO code for a country.
+        - geoCountryIso2=US
+
+        Use a pipe (|) to include multiple countries.
+        - geoCountryIso2=US|CA
+      schema:
+        $ref: '#/components/schemas/enumCountryIso2'
+    geoCountryIso3Param:
+      in: query
+      name: geoCountryIso3
+      description: |
+        The three-letter ISO code for a country.
+        - geoCountryIso3=USA
+
+        Use a pipe (|) to include multiple countries.
+        - geoCountryIso3=USA|CAN
+      schema:
+        $ref: '#/components/schemas/enumCountryIso3'
+    datePresetParam:
+      in: query
+      name: eventDatePreset
+      description: |
+        Use a dynamic date preset.
+        - eventDatePreset=tomorrow
+
+        Notes: 
+        - The `eventDatePreset` will override `eventDateFrom` & `eventDateTo` if those are set as well.
+        - The `halloween` preset returns events on 10/31 only. The `newYears` preset returns events on 12/31 only. The `july4th` preset returns events on or near July 4th.
+      example: tomorrow
+      schema:
+        $ref: '#/components/schemas/enumDatePresets'
+    dateFromParam:
+      in: query
+      name: eventDateFrom
+      description: |
+        For `concerts` must start on or after this date.\
+        For `festivals`, must start on or after this date.\
+        If left blank or omitted, will use the current date.\
+        The `expandPastEvents` parameter is required when using `eventDateFrom` before the current date.
+
+        - eventDateFrom=2023-10-31
+
+        Note: Dates use <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC3339</a> format.
+      example: '2023-10-01'
+      schema:
+        type: string
+        format: date
+    dateToParam:
+      in: query
+      name: eventDateTo
+      description: |
+        For `concerts` must start on or before this date.\
+        For `festivals` must end on or before this date.\
+        If left blank or omitted, will return all events after `eventDateFrom`.
+
+        - eventDateTo=2023-12-31
+
+        Note: Dates use <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC3339</a> format.
+      example: '2023-12-31'
+      schema:
+        type: string
+        format: date
+    dateModifiedFromParam:
+      in: query
+      name: dateModifiedFrom
+      description: |
+        Must have been updated on or after this dateTime in GMT.\
+        If left blank or omitted, will use all updated on dates
+
+        - dateModifiedFrom=2022-10-31 00:00:00
+
+        Note: Use <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC3339</a> format for parameter values.
+      example: '2022-10-31 00:00:00'
+      schema:
+        type: string
+        format: rfc3339
+    datePublishedFromParam:
+      in: query
+      name: datePublishedFrom
+      description: |
+        Must have been first published on or after this dateTime in GMT.\
+        \
+        If left blank or omitted, will use all first published on dates.
+
+        - datePublishedFrom=2022-01-01 00:00:00
+
+        Note: Use <a href="https://www.rfc-editor.org/rfc/rfc3339#section-5.6">RFC3339</a> format for parameter values.
+      example: '2022-01-01 00:00:00'
+      schema:
+        type: string
+        format: rfc3339
+    streamDataSourceParam:
+      in: query
+      name: streamDataSource
+      description: |
+        Find events with ticketing links from a specific ticket vendor using streamDataSources [[enum](#)].\
+        \
+        For example to find events with Mandolin tickets:
+
+        - streamDataSource=mandolin
+
+        Use a pipe (|) to include multiple ticket vendors.\
+        \
+        For example to find events with Mandolin or StageIt tickets:
+
+        - streamDataSource=mandolin|stageit
+
+        | Name        | Identifier        |
+        | ----------- | ----------- |
+        | Mandolin | mandolin |
+        | StageIt | stageit |
+      schema:
+        type: string
+        format: pipeDelimited
+    excludeEventPerformersParam:
+      in: query
+      name: excludeEventPerformers
+      description: |
+        Use `true` to suppress the `performer` node in `Concert` and `Festival` objects.
+      schema:
+        type: boolean
+        default: false
+    expandPastEventsParam:
+      in: query
+      name: expandPastEvents
+      description: |
+        Use `true` to include past/historical `Concert` and `Festival` objects.
+        \
+        When searching events, must be combined with `artistId` or `venueId` parameter.
+        \
+        Note: The `expandPastEvents` parameter requires that your apikey has the `expandPastEvents` enhancement turned on. Please contact JamBase to request access to this feature.
+      schema:
+        type: boolean
+        default: false
+    expandExternalIdentifiersParam:
+      in: query
+      name: expandExternalIdentifiers
+      description: |
+        Use `true` to include external IDs for `Concert`, `Artist`, and `Venue` objects.
+        \
+        Note: The `expandExternalIdentifiers` parameter requires that your apikey has the `expandExternalIdentifiers` enhancement turned on. Please contact JamBase to request access to this feature.
+      schema:
+        type: boolean
+        default: false
+    expandArtistSameAsParam:
+      in: query
+      name: expandArtistSameAs
+      description: |
+        Use `true` to include `sameAs` (i.e. links) for `Artist` responses.
+      schema:
+        type: boolean
+        default: false
+  schemas:
+    enumArtistDataSource:
+      type: string
+      description: Data source slugs to use for Artist IDs
+      enum:
+        - axs
+        - dice
+        - etix
+        - eventbrite
+        - eventim-de
+        - jambase
+        - seated
+        - seatgeek
+        - spotify
+        - ticketmaster
+        - viagogo
+        - musicbrainz
+      default: jambase
+      x-stoplight:
+        id: m7pyhha21d3n6
+      x-tags:
+        - Enums
+    enumVenueDataSource:
+      type: string
+      description: Data source slugs to use for Venue IDs
+      enum:
+        - axs
+        - dice
+        - etix
+        - eventbrite
+        - eventim-de
+        - jambase
+        - seated
+        - seatgeek
+        - suitehop
+        - ticketmaster
+        - viagogo
+      x-stoplight:
+        id: vg16q2jczs7fg
+      x-tags:
+        - Enums
+    enumEventDataSource:
+      type: string
+      description: Data source slugs to use for Event IDs
+      enum:
+        - axs
+        - dice
+        - etix
+        - eventbrite
+        - eventim-de
+        - jambase
+        - seated
+        - see-tickets
+        - see-tickets-uk
+        - sofar-sounds
+        - seatgeek
+        - suitehop
+        - ticketmaster
+        - tixr
+        - viagogo
+      x-tags:
+        - Enums
+    enumStreamDataSource:
+      type: string
+      description: Data source slugs to use for Stream IDs
+      enum:
+        - jambase
+      x-tags:
+        - Enums
+    enumEventType:
+      type: string
+      description: The type of event being requested
+      enum:
+        - concerts
+        - festivals
+      x-tags:
+        - Enums
+    enumEventStatus:
+      type: string
+      description: The scheduling status for the event
+      enum:
+        - scheduled
+        - postponed
+        - rescheduled
+        - cancelled
+      x-tags:
+        - Enums
+    enumRadiusUnits:
+      type: string
+      description: The units of measure for a geo search radius
+      enum:
+        - mi
+        - km
+      x-tags:
+        - Enums
+    enumDatePresets:
+      type: string
+      description: |
+        Presets for frequently used date ranges.
+      enum:
+        - today
+        - tomorrow
+        - thisWeekend
+        - nextWeekend
+        - halloween
+        - newYears
+        - july4th
+      x-tags:
+        - Enums
+    enumUrlType:
+      type: string
+      x-stoplight:
+        id: cf4040b56ddd2
+      description: The type of the external URL
+      enum:
+        - officialSite
+        - facebook
+        - twitter
+        - instagram
+        - youtube
+        - musicbrainz
+        - spotify
+        - androidApp
+        - iosApp
+      x-tags:
+        - Enums
+    enumAttendanceMode:
+      type: string
+      default: offline
+      description: 'Indicates whether it occurs online, offline, or a mix.'
+      enum:
+        - mixed
+        - offline
+        - online
+      x-tags:
+        - Enums
+    enumFestivalLineupDisplayOption:
+      type: string
+      default: full
+      description: Whether to display the `full` lineup or a `daybyday` breakdown
+      enum:
+        - full
+        - daybyday
+      x-stoplight:
+        id: hfetwdodwtcz5
+      x-tags:
+        - Enums
+    enumState:
+      type: string
+      format: iso-3166-2
+      description: |
+        A State code in ISO 3166-2 format [[docs](https://en.wikipedia.org/wiki/ISO_3166-2)].
+      example: US-AZ
+      enum:
+        $ref: Jambase-IsoCodes.json#/state_iso2
+      x-tags:
+        - Enums
+    enumCountryIso2:
+      type: string
+      format: iso-3166-alpha-2
+      example: US
+      description: |
+        The Country code in ISO 3166-1 alpha-2 format [[docs](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)].
+      enum:
+        $ref: Jambase-IsoCodes.json#/country_iso2
+      x-stoplight:
+        id: 1ef0ob0u4hu6w
+      x-tags:
+        - Enums
+    enumCountryIso3:
+      type: string
+      format: iso-3166-alpha-3
+      example: USA
+      description: |
+        The Country code in ISO 3166-1 alpha-3 format [[docs](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)].
+      enum:
+        $ref: Jambase-IsoCodes.json#/country_iso3
+      x-tags:
+        - Enums
+    enumGenres:
+      type: string
+      description: Music genres
+      summary: Multiple genres
+      enum:
+        - bluegrass
+        - blues
+        - christian
+        - classical
+        - country-music
+        - edm
+        - folk
+        - hip-hop-rap
+        - indie
+        - jamband
+        - jazz
+        - latin
+        - metal
+        - pop
+        - punk
+        - reggae
+        - rhythm-and-blues-soul
+        - rock
+      x-tags:
+        - Enums
+    AdministrativeArea:
+      title: AdministrativeArea
+      description: A Metro Area comprised of multiple cities.
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum:
+            - AdministrativeArea
+        identifier:
+          type: string
+          example: 'jambase:13412'
+          description: The unique JamBase identifier for the Metro Area.
+        name:
+          type: string
+          example: New York Area
+          description: The name of the Metro Area
+        geo:
+          $ref: '#/components/schemas/GeoCoordinates'
+          description: The lat/lng for the centroid of the Metro Area
+        address:
+          type: object
+          properties:
+            addressRegion:
+              $ref: '#/components/schemas/enumState'
+              description: The primary State/Region for Metro Area.
+            addressCountry:
+              $ref: '#/components/schemas/enumCountryIso2'
+        containsPlace:
+          type: array
+          items:
+            $ref: '#/components/schemas/City'
+        x-primaryCityId:
+          type: number
+          format: int32
+          example: 12
+          description: The unique identifier for the primary City for Metro Area.
+        x-numUpcomingEvents:
+          type: number
+          format: int32
+          example: 12
+          description: The number of upcoming events across all Cities in this Metro.
+      x-stoplight:
+        id: xyb6dq20xkoa2
+    City:
+      title: City
+      description: A city or locality
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum:
+            - City
+        identifier:
+          type: string
+          example: 'jambase:13412'
+          description: The unique identifier for the City/Locality.
+        name:
+          type: string
+          example: New York
+          description: The name of the City/Locality
+        geo:
+          $ref: '#/components/schemas/GeoCoordinates'
+          description: The lat/lng for the centroid of the City/Locality.
+        address:
+          type: object
+          properties:
+            addressRegion:
+              $ref: '#/components/schemas/enumState'
+            addressCountry:
+              type: string
+              description: |
+                The two-letter ISO code for the Country.
+              example: US
+        x-timezone:
+          type: string
+          description: |
+            A "tz database" timezone [[docs](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)].
+          example: America/New_York
+        containedInPlace:
+          $ref: '#/components/schemas/AdministrativeArea'
+          description: 'When using the `/cities` endpoint, this will include the Metro Area if the city is part of one.'
+        x-numUpcomingEvents:
+          type: number
+          format: int32
+          example: 12
+          description: The number of upcoming events in this City.
+    Concert:
+      title: Concert
+      description: A concert / show
+      type: object
+      required:
+        - type
+        - name
+        - identifier
+        - url
+        - eventStatus
+        - startDate
+        - location
+        - performer
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Concert
+            x-externalIdentifiers:
+              type: array
+              items:
+                - $ref: '#/components/schemas/ExternalIdentifier'
+            x-customTitle:
+              type: string
+              description: 'To replace the default `event[name]` property'
+            x-subtitle:
+              type: string
+              description: To supplement the title to help describe the event (e.g. Album Release Party)
+            x-headlinerInSupport:
+              type: boolean
+              default: false
+              description: if headlining performers should be listed with support acts (typically used with `x-customTitle`)
+            x-streamIds:
+              type: array
+              items:
+                type: string
+                example: 'jambase:12345'
+              description: An array of one or more IDs for Streams associated with a Concert
+      x-stoplight:
+        id: d7j9iw8g683w2
+    Country:
+      title: Country
+      description: A Country.
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum:
+            - Country
+        identifier:
+          $ref: '#/components/schemas/enumCountryIso2'
+        name:
+          type: string
+          example: United States
+          description: The name of the Country Area
+        alternateName:
+          $ref: '#/components/schemas/enumCountryIso3'
+        x-numUpcomingEvents:
+          type: number
+          format: int32
+          example: 12
+          description: |
+            The number of upcoming events in this Country.
+            \
+            Note: this is only provided in the Geography lookup endpoints, not as part of a location within a Concert, Festival, or Stream.
+    ErrorsList:
+      description: A list of errors
+      x-stoplight:
+        id: 1253ab38a345c
+      type: array
+      items:
+        type: object
+        properties:
+          errorCode:
+            type: string
+            enum:
+              - no_lookup_results
+              - lookup_error
+              - parameter_missing
+              - parameter_invalid
+              - identifier_missing
+              - identifier_invalid
+              - parameter_out_of_range
+              - general_error
+          errorMessage:
+            type: string
+            example: 'The identifier `jambase:87121` is invalid.'
+    Event:
+      title: Event
+      description: |
+        A generic event.Please note that `startDate`,`endDate`,`previousStartDate`, and `doorTime` are all returned based on the venue's local time but without an offset. You can find the timezone at `event > location > address > x-timezone` if you need to do any conversions.
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Thing'
+          properties:
+            sameAs:
+              description: 'Only available for `Festival` type events, not `Concert`'
+        - type: object
+          properties:
+            eventStatus:
+              $ref: '#/components/schemas/enumEventStatus'
+            startDate:
+              type: string
+              format: iso-8601
+              description: |
+                The start date and time of the item using ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+                \
+                Please note that `startDate` is returned based on the venue's local time but without an offset. You can find the timezone at `event > location > address > x-timezone` if you need to do any conversions.
+            endDate:
+              type: string
+              format: iso-8601
+              description: |
+                The end date of the item using ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+                \
+                Please note that `endDate` is returned based on the venue's local time but without an offset. You can find the timezone at `event > location > address > x-timezone` if you need to do any conversions.
+            previousStartDate:
+              type: string
+              format: iso-8601
+              description: |
+                For rescheduled events, the previously scheduled start date using ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+                \
+                Please note that `previousStartDate` is returned based on the venue's local time but without an offset. You can find the timezone at `event > location > address > x-timezone` if you need to do any conversions.
+            doorTime:
+              type: string
+              format: iso-8601
+              description: |
+                The time admission will commence in local time using ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+                \
+                Please note that `doorTime` is returned based on the venue's local time but without an offset. You can find the timezone at `event > location > address > x-timezone` if you need to do any conversions.
+            location:
+              $ref: '#/components/schemas/MusicVenue'
+            offers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Offer'
+            performer:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/MusicGroup'
+                  - type: object
+                    properties:
+                      x-performanceDate:
+                        type: string
+                        format: iso-8601
+                        description: |
+                          The date of the performance using ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+                      x-performanceRank:
+                        type: number
+                        format: int32
+                        require: true
+                        description: The "rank" for this performance whithin the event
+                      x-isHeadliner:
+                        type: boolean
+                        default: false
+                        require: true
+                        description: If this performer is a headliner
+                      x-dateIsConfirmed:
+                        type: boolean
+                        default: false
+                        description: |
+                          Required for Festivals.
+                          If a Festival performance date is confirmed or not.\
+                          If not, it will appear on the first day of the Festival.
+            eventAttendanceMode:
+              $ref: '#/components/schemas/enumAttendanceMode'
+            isAccessibleForFree:
+              type: boolean
+              default: false
+            x-promoImage:
+              type: string
+              format: uri
+              description: A secondary promotional image for the event (e.g. admat)
+    ExternalIdentifier:
+      title: ExternalIdentifier
+      description: A third-party non-JamBase ID.
+      type: object
+      properties:
+        source:
+          oneOf:
+            items:
+              - $ref: '#/components/schemas/enumEventDataSource'
+              - $ref: '#/components/schemas/enumArtistDataSource'
+              - $ref: '#/components/schemas/enumVenueDataSource'
+        identifier:
+          type: array
+          items:
+            type: string
+          description: An array of unique identifier of the item.
+      examples:
+        - source: ticketmaster
+          identifier: e3asdf3ad
+        - source: axs
+          identifier: 123423
+    Festival:
+      title: Festival
+      description: A music festival
+      type: object
+      required:
+        - type
+        - name
+        - identifier
+        - url
+        - eventStatus
+        - startDate
+        - endDate
+        - location
+        - performer
+        - x-lineupDisplay
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          properties:
+            '@type':
+              type: string
+              enum:
+                - Festival
+            x-lineupDisplayOption:
+              $ref: '#/components/schemas/enumFestivalLineupDisplayOption'
+    Genre:
+      title: Genre
+      description: A music genre
+      type: object
+      properties:
+        name:
+          type: string
+          description: The display name for the genre.
+        identifier:
+          $ref: '#/components/schemas/enumGenres'
+    GeoCoordinates:
+      title: GeoCoordinates
+      description: The latitude and longitude for a place
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum:
+            - GeoCoordinates
+        latitude:
+          $ref: '#/components/schemas/propLatitude'
+        longitude:
+          $ref: '#/components/schemas/propLongitude'
+    MusicGroup:
+      title: MusicGroup
+      description: A band or musician
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Thing'
+        - type: object
+          properties:
+            '@type':
+              type: string
+              enum:
+                - MusicGroup
+            member:
+              type: array
+              description: 'For bands, an array of the band''s members'
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - MusicGroup
+                  name:
+                    type: string
+                    description: The name of the item
+                  identifier:
+                    type: string
+                    example: 'jambase:12345'
+                    description: A unique identifier of the item
+                  image:
+                    type: string
+                    format: uri
+                    description: An image of the item
+                  url:
+                    type: string
+                    format: uri
+                    description: URL of the item
+            memberOf:
+              type: array
+              description: 'For musicians, an array of the band''s the musician is a member of'
+              items:
+                type: object
+                properties:
+                  '@type':
+                    type: string
+                    enum:
+                      - MusicGroup
+                  name:
+                    type: string
+                    description: The name of the item
+                  identifier:
+                    type: string
+                    example: 'jambase:98765'
+                    description: A unique identifier of the item
+                  image:
+                    type: string
+                    format: uri
+                    description: An image of the item
+                  url:
+                    type: string
+                    format: uri
+                    description: URL of the item
+            foundingLocation:
+              type: object
+              properties:
+                '@type':
+                  type: string
+                  enum:
+                    - Place
+                name:
+                  type: string
+                  example: 'Chicago, IL'
+              description: The hometown of the artist
+            foundingDate:
+              type: string
+              format: iso-8601
+              example: '1983'
+              description: The year the artist first performed
+            genre:
+              type: array
+              items:
+                $ref: '#/components/schemas/enumGenres'
+            events:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/Concert'
+                  - $ref: '#/components/schemas/Festival'
+                  - $ref: '#/components/schemas/Stream'
+              description: |
+                Only available when using `expandUpcomingEvents=true` and/or `expandUpcomingStreams=true` URL param.
+            x-bandOrMusician:
+              type: string
+              enum:
+                - band
+                - musician
+            x-numUpcomingEvents:
+              type: number
+              format: int32
+              example: 12
+              description: |
+                The number of upcoming events for this artist.            
+            x-externalIdentifiers:
+              type: array
+              items:
+                - $ref: '#/components/schemas/ExternalIdentifier'
+    MusicVenue:
+      title: MusicVenue
+      description: A place to Go See Live Music
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Thing'
+        - type: object
+          properties:
+            maximumAttendeeCapacity:
+              type: number
+              format: int32
+              example: 20789
+              description: The total number of individuals that may attend an event or venue.
+            address:
+              $ref: '#/components/schemas/PostalAddress'
+            geo:
+              $ref: '#/components/schemas/GeoCoordinates'
+            events:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/Concert'
+                  - $ref: '#/components/schemas/Festival'
+            x-isPermanentlyClosed:
+              type: boolean
+              default: false
+              description: If the venue is permanently closed.
+            x-numUpcomingEvents:
+              type: number
+              format: int32
+              example: 12
+              description: The number of upcoming events at this venue.
+            x-externalIdentifiers:
+              type: array
+              items:
+                - $ref: '#/components/schemas/ExternalIdentifier'
+    Offer:
+      title: Offer
+      description: 'Something for sale, typically a concert ticket'
+      type: object
+      required:
+        - identifier
+        - url
+        - category
+        - seller
+        - validFrom
+      allOf:
+        - $ref: '#/components/schemas/Thing'
+        - type: object
+          properties:
+            identifier:
+              type: string
+              description: A unique identifier of the item
+              example: 'jambase:194164'
+            url:
+              type: string
+              format: uri
+              description: URL of the item
+            category:
+              type: string
+              description: 'The category of the Offer, typically used to identify a primary or secondary ticketing link'
+              examples:
+                - ticketingLinkPrimary
+                - ticketingLinkSecondary
+            priceSpecification:
+              $ref: '#/components/schemas/PriceSpecification'
+            seller:
+              $ref: '#/components/schemas/Organization'
+              required: true
+            validFrom:
+              example: '2022-12-07T12:42:00'
+              schema:
+                type: string
+                format: dateTime
+    Organization:
+      title: Organization
+      description: |
+        An organization or business.\
+        Typically a ticket vendor or data source in this API.\
+        The `identifier` or "slug" can also be used as `ticket[vendor][id]` in `/events` and `/livestreams` search endpoints.
+      type: object
+      required:
+        - name
+        - identifier
+        - disambiguatingDescription
+        - datePublished
+        - dateModified
+      allOf:
+        - type: object
+          properties:
+            '@type':
+              type: string
+              enum:
+                - Organization
+            identifier:
+              type: string
+              description: A unique identifier of the item
+              example: ticketmaster
+            disambiguatingDescription:
+              type: string
+              examples:
+                - eventTicketVendorPrimary
+                - eventTicketVendorSecondary
+                - streamTicketVendorPrimary
+                - streamDataSource
+                - eventDataSource
+                - artistDataSource
+                - venueDataSource
+        - $ref: '#/components/schemas/Thing'
+    Pagination:
+      title: Pagination
+      description: Enclosure for pagination values.
+      type: object
+      properties:
+        page:
+          type: integer
+          description: The current page of results.
+          example: 1
+          minimum: 0
+        perPage:
+          type: integer
+          description: Number of events per page of results.
+          example: 10
+          minimum: 1
+        totalItems:
+          type: integer
+          description: Total results for the request.
+          example: 50
+          minimum: 0
+        totalPages:
+          type: integer
+          description: Total pages for the request.
+          example: 5
+          minimum: 0
+        nextPage:
+          type: string
+          format: url
+          description: 'The URL for the next page of results, if available'
+        previousPage:
+          type: string
+          format: url
+          description: 'The URL for the previous page of results, if available'
+    PriceSpecification:
+      title: PriceSpecification
+      description: The price or price range for the thing
+      type: object
+      required:
+        - price
+        - priceCurrency
+      properties:
+        '@type':
+          type: string
+          enum:
+            - PriceSpecification
+        minPrice:
+          description: The lowest price if the price is a range
+          type: number
+          format: decimal
+          min: 0
+          example: 15.99
+        maxPrice:
+          description: The highest price if the price is a range
+          type: number
+          format: decimal
+          min: 0
+          example: 35.99
+        price:
+          description: 'The singular price if not a range, same as `minPrice` if a range'
+          type: number
+          format: decimal
+          min: 0
+          example: 35.99
+        priceCurrency:
+          type: string
+          format: iso-4217
+          description: 'The currency of the price in ISO 4217 format [[docs](https://en.wikipedia.org/wiki/ISO_4217)]'
+          example: USD
+    PostalAddress:
+      title: PostalAddress
+      description: 'A postal address, typically for a MusicVenue'
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum:
+            - PostalAddress
+        streetAddress:
+          type: string
+          example: 4 Pennsylvania Plaza
+          description: The street address
+        addressLocality:
+          type: string
+          example: New York
+          description: The city/locality in which the place is in
+        postalCode:
+          type: string
+          example: '10001'
+          description: The postal code
+        addressRegion:
+          allOf:
+            - $ref: '#/components/schemas/State'
+        addressCountry:
+          allOf:
+            - $ref: '#/components/schemas/Country'
+        x-streetAddress2:
+          type: string
+          example: Second Floor
+          description: An optional second line for street address.
+        x-timezone:
+          type: string
+          description: |
+            A "tz database" timezone [[see list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)].
+          example: America/New_York
+        x-jamBaseMetroId:
+          type: number
+          format: int32
+          example: 1
+          description: A unique identifier to the JamBase metro.
+        x-jamBaseCityId:
+          type: number
+          format: int32
+          example: 4223296
+          description: A unique identifier to the JamBase city.
+    Request:
+      title: Request
+      description: Enclosure for request details.
+      type: object
+      properties:
+        endpoint:
+          type: string
+          format: url
+          description: The base endpoint requested
+        method:
+          type: string
+          description: 'The request method (e.g. GET, POST)'
+        params:
+          type: array
+          items: {}
+          format: string
+          description: The parameters for the request
+        ip:
+          oneOf:
+            - type: string
+              format: ipv4
+            - type: string
+              format: ipv6
+          description: 'The requesting IP address, IPv4 or IPv6'
+        userAgent:
+          type: string
+          format: string
+          description: The requesting UserAgent
+    State:
+      title: State
+      description: |
+        A State, Region, or Province.
+        \
+        Note 1: Available for United States, Canada, and Australia only.
+        \
+        Note 2: The `country` and `x-numUpcomingEvents` nodes are only provided in the Geography lookup endpoints, not as part of `addressRegion` within a Concert, Festival, or Stream.
+      type: object
+      x-stoplight:
+        id: rbp08k99t5o7m
+      properties:
+        '@type':
+          type: string
+          enum:
+            - State
+        identifier:
+          $ref: '#/components/schemas/enumState'
+        name:
+          type: string
+          example: Arizona
+          description: The name of the State
+        alternateName:
+          type: string
+          example: AZ
+          description: The indentifier without the Country code prefix
+        country:
+          $ref: '#/components/schemas/Country'
+          description: |
+            The country in which the state belongs.
+            \
+            Note: this is only provided in the Geography lookup endpoints, not as part of a location's `addressCountry` within a Concert, Festival, or Stream.
+        x-numUpcomingEvents:
+          type: number
+          format: int32
+          example: 12
+          description: |
+            The number of upcoming events in this State.
+            \
+            Note: this is only provided in the Geography lookup endpoints, not as part of a location within a Concert, Festival, or Stream.
+    Stream:
+      title: Stream
+      description: A stream
+      type: object
+      required:
+        - type
+        - name
+        - identifier
+        - url
+        - eventStatus
+        - startDate
+        - location
+        - performer
+      allOf:
+        - $ref: '#/components/schemas/Event'
+        - type: object
+          properties:
+            '@type':
+              type: string
+              enum:
+                - Stream
+            isLiveBroadcast:
+              type: boolean
+              description: True if the broadcast is of a live event
+            broadcastOfEvent:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/Concert'
+                  - $ref: '#/components/schemas/Festival'
+            x-customTitle:
+              type: string
+              description: 'To replace the default `event[name]` property'
+      x-stoplight:
+        id: fijmf4s5a9h9x
+    Success:
+      name: success
+      description: A successful response.
+      type: boolean
+      default: true
+    Thing:
+      title: Thing
+      description: A generic thing
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the item
+        identifier:
+          type: string
+          example: 'jambase:194164'
+          description: A unique identifier of the item
+        url:
+          type: string
+          format: uri
+          description: URL of the item
+        image:
+          type: string
+          format: uri
+          description: |
+            An image of the item.\
+            \
+            Please note that 'image' may not be provided for all Schemas that include `Thing` (e.g. `Organization`)
+        sameAs:
+          type: array
+          items:
+            $ref: '#/components/schemas/URL'
+          description: URL of a reference Web page that unambiguously indicates the item's identity
+        datePublished:
+          type: string
+          format: iso-8601
+          example: '2022-12-14T15:35:48Z'
+          description: |
+            The date the Event first appeared in ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+            \
+            Please note that 'datePublished' may not be provided for all Schemas that include `Thing` (e.g. `Organization`)
+        dateModified:
+          type: string
+          format: iso-8601
+          example: '2022-12-14T03:41:20Z'
+          description: |
+            The date the Event was last updated in ISO 8601 date format [[docs](https://en.wikipedia.org/wiki/ISO_8601)]
+            \
+            Please note that 'dateModified' may not be provided for all Schemas that include `Thing` (e.g. `Organization`)
+    URL:
+      title: URL
+      x-stoplight:
+        id: ac90d6bc4bf17
+      description: A third-party link.
+      type: object
+      properties:
+        '@type':
+          type: string
+          enum:
+            - URL
+        identifier:
+          $ref: '#/components/schemas/enumUrlType'
+        url:
+          type: string
+          format: uri
+          description: The URL of the external link.
+    propLatitude:
+      title: propLatitude
+      type: number
+      format: float
+      minimum: -90
+      maximum: 90
+      example: 40.7505
+      description: The latitude of a location
+      x-stoplight:
+        id: 0gf3yu2lypo1r
+    propLongitude:
+      title: propLongitude
+      type: number
+      format: float
+      minimum: -180
+      maximum: 180
+      example: -73.9934
+      description: The longitude of a location
+      x-stoplight:
+        id: udrk05v1mvsv9
+  responses:
+    searchEventsResponse:
+      description: A list of Events
+      content:
+        application/json:
+          schema:
+            title: searchEventsResponseSchema
+            description: An array of `Concerts` and `Festivals`.
+            type: object
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              pagination:
+                $ref: '#/components/schemas/Pagination'
+              events:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Concert'
+                    - $ref: '#/components/schemas/Festival'
+              request:
+                $ref: '#/components/schemas/Request'
+    getSingleUpcomingEventResponse:
+      description: A single Event
+      content:
+        application/json:
+          schema:
+            title: getSingleUpcomingEventResponseSchema
+            description: A single `Concert` or `Festival`.
+            type: object
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              event:
+                oneOf:
+                  - $ref: '#/components/schemas/Concert'
+                  - $ref: '#/components/schemas/Festival'
+    searchUpcomingStreamsResponse:
+      description: A list of Streams
+      content:
+        application/json:
+          schema:
+            title: searchUpcomingStreamsResponseSchema
+            description: An array of `Stream` objects.
+            type: object
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              pagination:
+                $ref: '#/components/schemas/Pagination'
+              streams:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stream'
+              request:
+                $ref: '#/components/schemas/Request'
+    getSingleUpcomingStreamResponse:
+      description: A single Stream (`Stream`).
+      content:
+        application/json:
+          schema:
+            title: getSingleUpcomingStreamResponseSchema
+            description: A single stream response
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              stream:
+                $ref: '#/components/schemas/Stream'
+    searchArtistsResponse:
+      description: A list of Artists
+      content:
+        application/json:
+          schema:
+            title: searchArtistsResponseSchema
+            description: An array of `MusicGroup` objects
+            type: object
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              pagination:
+                $ref: '#/components/schemas/Pagination'
+              artists:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MusicGroup'
+              request:
+                $ref: '#/components/schemas/Request'
+    getSingleArtistResponse:
+      description: A single Artist
+      content:
+        application/json:
+          schema:
+            title: getSingleArtistResponseSchema
+            description: A single Artist response
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              artist:
+                $ref: '#/components/schemas/MusicGroup'
+    searchVenuesResponse:
+      description: A list of Venues
+      content:
+        application/json:
+          schema:
+            title: searchVenuesResponseSchema
+            description: An array of `MusicVenue` objects
+            type: object
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              pagination:
+                $ref: '#/components/schemas/Pagination'
+              venues:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MusicVenue'
+              request:
+                $ref: '#/components/schemas/Request'
+    getSingleVenueResponse:
+      description: A single Venue
+      content:
+        application/json:
+          schema:
+            title: getSingleVenueResponseSchema
+            description: A single Venue response
+            properties:
+              success:
+                $ref: '#/components/schemas/Success'
+              venue:
+                $ref: '#/components/schemas/MusicVenue'
+    BadRequest:
+      description: Invalid input parameter
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: false
+              errors:
+                $ref: '#/components/schemas/ErrorsList'
+    UnauthorizedError:
+      description: API key is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+servers:
+  - url: 'https://www.jambase.com/jb-api/v1'
+    description: 'JamBase.com [Production]'
+x-internal: false
